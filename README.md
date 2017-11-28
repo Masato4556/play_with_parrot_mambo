@@ -63,3 +63,4 @@ bash setup.sh
   $ node move1.js
   ```
 
+  ドローンが飛んで、そのまま降りてくればOKです！
