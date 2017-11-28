@@ -76,21 +76,39 @@ function download() {
  * コマンド:
  *
  *   飛行状態を変化:
- *     離陸: dronejs.takeOff() 
- *     安定化: dronejs.flatTrim() : 離陸前に必ず1度呼ぶ
- *     着陸: dronejs.land()
+ *     離陸   : dronejs.takeOff()
+ *     安定化 : dronejs.flatTrim() : 離陸前に必ず1度呼ぶ
+ *     着陸   : dronejs.land()
  *
  *   移動:
- *     前進: dronejs.forward() : 引数には、進む強さと回数を指定する
- *     右を向く: dronejs.turnRight() : 引数には回転の強さと回数を指定する
+ *     前進     : dronejs.forward()   : 引数には、進む強さと回数を指定する
+ *     後退     : dronejs.backward()  : 引数には、進む強さと回数を指定する
+ *     右に進む : dronejs.right()     : 引数には、進む強さと回数を指定する
+ *     左に進む : dronejs.left()      : 引数には、進む強さと回数を指定する
+ *     上昇     : dronejs.up()        : 引数には、進む強さと回数を指定する
+ *     下降     : dronejs.down()      : 引数には、進む強さと回数を指定する
+ *     右を向く : dronejs.turnRight() : 引数には回転の強さと回数を指定する
+ *     左を向く : dronejs.turnLeft()  : 引数には回転の強さと回数を指定する
  *
  *   Grabberを動かす:
  *     つかむ: dronejs.grabClose()
  *     はなす: dronejs.grabOpen()
  *
+ *   アクロバット:
+ *     前転     : dronejs.frontFlip()
+ *     後転     : dronejs.backFlip()
+ *     側転(右) : dronejs.rightFlip()
+ *     側転(左) : dronejs.leftFlip()
+ *
+ *   写真:
+ *     撮影         : dronejs.takePicture()
+ *     一覧を取得   : dronejs.listAllPictures()
+ *     ダウンロード : dronejs.downloadPicture()
+ *     画像を削除   : dronejs.deletePicture()
+ *
  *   その他:
- *     ログを出力する: dronejs.enableLogging() : 引数にログファイルを出すディレクトリを指定します
- *     ドローンの状態を確認する: dronejs.checkAllStates() : これを行ったあと、ドローンの詳しい状態が送られてきます
+ *     ログを出力する           : dronejs.enableLogging()  : 引数にログを出すディレクトリを指定
+ *     ドローンの状態を確認する : dronejs.checkAllStates() : ドローンの詳しい状態が送られてきます
  *
  */
 function main() {
@@ -107,26 +125,12 @@ function main() {
 
   // ここから処理を書いていきます
   dronejs.connect(DRONE_NAME)
-    .then(() => dronejs.grabOpen())
-    .then(() => dronejs.checkAllStates())
+    // 飛ぶ前に一度平坦な状態を覚える
     .then(() => dronejs.flatTrim())
     // 飛ぶ
     .then(() => dronejs.takeOff())
     .then(() => dronejs.flatTrim())
-    .then(() => dronejs.forward(90, 2))
-    .then(() => dronejs.flatTrim())
-    .then(() => dronejs.land())
     // 降りる
-    .then(() => dronejs.grabClose())
-    .then(() => dronejs.flatTrim())
-    // 飛ぶ
-    .then(() => dronejs.takeOff())
-    .then(() => dronejs.flatTrim())
-    .then(() => dronejs.turnRight(90, 3))
-    .then(() => dronejs.turnRight(90, 3))
-    .then(() => dronejs.flatTrim())
-    .then(() => dronejs.forward(90, 1))
-    .then(() => dronejs.flatTrim())
     .then(() => dronejs.land())
     .then(() => dronejs.disconnect())
     .then(() => {
