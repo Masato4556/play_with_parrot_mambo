@@ -1,0 +1,29 @@
+{
+  "name": "play_with_parrot_mambo",
+  "version": "1.0.0",
+  "description": "ドローンを使って遊びます",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiko2msp/play_with_parrot_mambo.git"
+  },
+  "keywords": [
+    "drone",
+    "parrot mambo",
+    "grab"
+  ],
+  "author": "hiko2msp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hiko2msp/play_with_parrot_mambo/issues"
+  },
+  "homepage": "https://github.com/hiko2msp/play_with_parrot_mambo#readme",
+  "dependencies": {
+    "keypress": "^0.2.1",
+    "noble": "^1.8.1",
+    "rxjs": "^5.5.2"
+  }
+}
