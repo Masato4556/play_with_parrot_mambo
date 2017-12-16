@@ -7,7 +7,7 @@ process.stdin.setRawMode(true);
 process.stdin.resume();
 
 // あなたのMamboの名前をセットしてください。
-var DRONE_NAME = "XXXXXXXXXXXX";
+var DRONE_NAME = "Mambo_637131";
 
 /**
  * 写真撮影関数
@@ -34,22 +34,6 @@ process.stdin.on('keypress', function (ch, key) {
   }
 });
 
-// Droneにある画像一覧を表示する
-function listAllPictures() {
-  rxjs.Observable.fromPromise(dronejs.connect(DRONE_NAME))
-    .flatMap(() => dronejs.listAllPictures())
-    .subscribe(x => console.log(x));
-}
-
-// Droneにある画像を全て削除する
-function deleteAllPictures() {
-  rxjs.Observable.fromPromise(dronejs.connect(DRONE_NAME))
-    .flatMap(() => dronejs.listAllPictures())
-    .concatMap(pictures => rxjs.Observable.from(pictures))
-    .flatMap(pic => dronejs.deletePicture(pic))
-    .subscribe(x => console.log(x));
-}
-
 // Droneにある最新の画像をダウンロードする
 function download() {
   var targetPic;
@@ -64,6 +48,36 @@ function download() {
         console.log(response);
       }
     });
+}
+
+function downloadAllPictures() {
+  console.log('download start');
+  return dronejs.listAllPictures()
+    .then(pictures => {
+      console.log(pictures);
+      const numPictures = pictures.length;
+      let numDownloaded = 0;
+      return new Promise((resolve, reject) => {
+        pictures.forEach((targetPic) => {
+          dronejs.downloadPicture(targetPic, 'output')
+            .then((response)=> {
+              if (response === 'success') {
+                console.log(targetPic + ": picture downloaded successfully...");
+                numDownloaded += 1;
+                if (numDownloaded === numPictures) {
+                  resolve('success');
+                }
+              } else {
+                console.log(response);
+                reject(response);
+              }
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        })
+      });
+    })
 }
 
 /**
@@ -123,15 +137,37 @@ function main() {
     () => debug('complete')
   );
 
+  const forwardIndensity = 50;
+  const forwardTimes = 1;
   // ここから処理を書いていきます
   dronejs.connect(DRONE_NAME)
     // 飛ぶ前に一度平坦な状態を覚える
     .then(() => dronejs.flatTrim())
-    // 飛ぶ
+    // 物を掴んで離陸
+    .then(() => dronejs.grabClose())
     .then(() => dronejs.takeOff())
-    .then(() => dronejs.flatTrim())
-    // 降りる
+    // 前進しながら写真を撮る
+    .then(() => dronejs.forward(forwardIndensity, forwardTimes))
+    .then(() => dronejs.takePicture())
+    .then(() => dronejs.forward(forwardIndensity, forwardTimes))
+    .then(() => dronejs.takePicture())
+    .then(() => dronejs.forward(forwardIndensity, forwardTimes))
+    // 着陸して分析する
     .then(() => dronejs.land())
+    .then(() => downloadAllPictures())
+
+    // 離陸する
+    .then(() => dronejs.flatTrim())
+    .then(() => dronejs.takeOff())
+    // 反転して、戻る
+    .then(() => dronejs.turnRight(90, 7))
+    .then(() => dronejs.forward(forwardIndensity, forwardTimes))
+    .then(() => dronejs.forward(forwardIndensity, forwardTimes))
+    .then(() => dronejs.grabOpen())
+    .then(() => dronejs.forward(forwardIndensity, forwardTimes))
+    // 着陸する
+    .then(() => dronejs.land())
+    // 接続解除
     .then(() => dronejs.disconnect())
     .then(() => {
       process.stdin.pause();
