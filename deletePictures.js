@@ -1,6 +1,7 @@
 var keypress = require('keypress');
-var rxjs = require('rxjs');
 var dronejs = require('dronejs');
+var fs = require('fs');
+
 
 keypress(process.stdin);
 process.stdin.setRawMode(true);
@@ -22,13 +23,36 @@ process.stdin.on('keypress', function (ch, key) {
   }
 });
 
+// outputディレクトリにある画像を削除する
+fs.readdir('output', (err, files) => {
+  files
+    .filter(filename => filename.startsWith('Mambo'))
+    .forEach(filename => {
+      fs.unlink(`output/${filename}`);
+    });
+});
+
 // Droneにある画像を全て削除する
 function deleteAllPictures() {
-  rxjs.Observable.fromPromise(dronejs.connect(DRONE_NAME))
-    .flatMap(() => dronejs.listAllPictures())
-    .concatMap(pictures => rxjs.Observable.from(pictures))
-    .flatMap(pic => dronejs.deletePicture(pic))
-    .subscribe(x => {
+  dronejs.connect(DRONE_NAME)
+    .then(() => dronejs.listAllPictures())
+    .then(pictures => {
+      console.log(pictures)
+      return pictures.reduce((promise, picture) => {
+        return promise.then((result) => {
+          console.log('start', picture, 'deletion')
+          return new Promise((resolve, reject) => {
+            dronejs.deletePicture(picture)
+                .then(
+                  status => console.log(status) || resolve(status),
+                  error => console.log(error) || reject(error)
+                )
+          })
+        });
+      }, Promise.resolve());
+    
+    })
+    .then(x => {
         process.stdin.pause();
         process.exit();
     });
