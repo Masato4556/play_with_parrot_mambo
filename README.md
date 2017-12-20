@@ -18,6 +18,10 @@ Parrot Mambo Missionを使って遊びます
 
 #### githubのアカウントを作りましょう
 
+#### Pythonをインストールしましょう
+
++ ([Anacondaでインストール](https://www.anaconda.com/download/#macos))
+
 #### Node.jsをインストールしましょう
 
 + Macの場合
@@ -51,16 +55,42 @@ bash setup.sh
 
 #### 最初のプログラムを実行しましょう
 
-+ move1.jsにドローンの名前を追記する(10行目を下記のように修正します)
+##### Macの場合
+
++ 別のターミナルで画像処理用のPythonのサーバを実行する
+
+  ```
+  python run_server.py
+  ```
+
++ macSample.jsにドローンの名前を追記する(14行目を下記のように修正します)
   ```
   // あなたのMamboの名前をセットしてください。
   var DRONE_NAME = "Mambo_546341";
   ```
 
-+ move1.jsを動かす
++ macSample.jsを動かす
 
   ```
-  $ node move1.js
+  $ node macSample.js
   ```
 
-  ドローンが飛んで、そのまま降りてくればOKです！
+##### Windowsの場合
+
++ 別のターミナルで画像処理用のPythonのサーバを実行する
+
+  ```
+  python run_server.py
+  ```
+
++ winSample.jsにドローンの名前を追記する(14行目を下記のように修正します)
+  ```
+  // あなたのMamboの名前をセットしてください。
+  var DRONE_NAME = "Mambo_546341";
+  ```
+
++ winSample.jsを動かす
+
+  ```
+  $ node winSample.js
+  ```

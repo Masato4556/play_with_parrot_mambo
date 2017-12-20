@@ -11,7 +11,7 @@ process.stdin.setRawMode(true);
 process.stdin.resume();
 
 // あなたのMamboの名前をセットしてください。
-var DRONE_NAME = "Mambo_637131";
+var DRONE_NAME = "XXXXXXXXXXXX";
 
 // listen for the "keypress" event
 process.stdin.on('keypress', function (ch, key) {

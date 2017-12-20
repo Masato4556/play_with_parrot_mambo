@@ -11,7 +11,7 @@ process.stdin.setRawMode(true);
 process.stdin.resume();
 
 // あなたのMamboの名前をセットしてください。
-var DRONE_NAME = "Mambo_637131";
+var DRONE_NAME = "XXXXXXXXXXXX";
 
 // listen for the "keypress" event
 process.stdin.on('keypress', function (ch, key) {
@@ -31,37 +31,6 @@ function downloadAllPictures() {
   // Windowsでは何もしません
 }
 
-/**
- * Windowsの場合は、ドローンからの通信が来ないので、いつ開ききったかがわからない
- * そのため、flatTrimを使って通信を途切れさせず開ききるまで待つようにする
- */
-function winGrabOpen() {
-	return dronejs.grabOpen()
-		.then(() => {
-			return new Promise((resolve, reject) => {
-				setTimeout(() => {
-					resolve('wait succeed');
-				}, 1000);
-			})
-		})
-		.then(() => dronejs.flatTrim());
-}
-
-/**
- * Windowsの場合は、ドローンからの通信が来ないので、いつ閉じきったかがわからない
- * そのため、flatTrimを使って通信を途切れさせず閉じきるまで待つようにする
- */
-function winGrabClose() {
-	return dronejs.grabClose()
-		.then(() => {
-			return new Promise((resolve, reject) => {
-				setTimeout(() => {
-					resolve('wait succeed');
-				}, 1000);
-			})
-		})
-		.then(() => dronejs.flatTrim())
-}
 
 function winTakePicture() {
 	// 何もしません
@@ -101,14 +70,14 @@ function landingAndGrabOpen(result, num) {
   return Promise.resolve()
     .then(() => result === num ? dronejs.flatTrim() : Promise.resolve())
     .then(() => result === num ? dronejs.land() : Promise.resolve())
-    .then(() => result === num ? winGrabOpen() : Promise.resolve())
+    .then(() => result === num ? dronejs.grabOpen() : Promise.resolve())
     .then(() => result === num ? dronejs.flatTrim() : Promise.resolve())
     .then(() => result === num ? dronejs.takeOff() : Promise.resolve())
 }
 
 function grabOpen(result, num) {
   return Promise.resolve()
-    .then(() => result === num ? winGrabOpen() : Promise.resolve())
+    .then(() => result === num ? dronejs.grabOpen() : Promise.resolve())
 }
 
 class NumberAnalyzer {
