@@ -8,9 +8,12 @@ import json
 
 def resize(img_array, size=400):
     h, w, c = img_array.shape
-    padding_h = int((h-size) / 2)
-    padding_w = int((w-size) / 2)
-    return img_array[padding_h:padding_h + size, padding_w: padding_w + size]
+    if min(h, w) == 480: # 元画像用 640 x 480 -> 400 x 400に変換
+        padding_h = int((h-size) / 2)
+        padding_w = int((w-size) / 2)
+        return img_array[padding_h:padding_h + size, padding_w: padding_w + size]
+    else: # Thumbnail用 80 x 60 -> 60 x 60に変換
+        return img_array[10:70, :]
 
 
 def predict_image_by_model(img_filename_list, model_filename):
