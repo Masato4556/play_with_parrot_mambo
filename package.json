@@ -22,8 +22,10 @@
   },
   "homepage": "https://github.com/hiko2msp/play_with_parrot_mambo#readme",
   "dependencies": {
+    "bluetooth-hci-socket": "^0.5.1",
     "keypress": "^0.2.1",
     "noble": "^1.8.1",
+    "node-gyp": "^3.6.2",
     "rxjs": "^5.5.2"
   }
 }
