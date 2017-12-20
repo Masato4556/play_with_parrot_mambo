@@ -261,47 +261,4 @@ function main() {
     });
 }
 
-// main(); // 関数を実行します
-function main2() {
-  console.log('start')
-
-  // ドローンの状態を受け取るイベントストリーム(rxjsのObservableオブジェクト)を取得します
-  const navDataStream = dronejs.getNavDataStream();
-  navDataStream.subscribe((data) => {
-        console.log(data);
-    },
-    e => debug(e),
-    () => debug('complete')
-  );
-
-//  const forwardIndensity = 53;
-//  const forwardTimes = 2;
-  const forwardIndensity = 30;
-  const forwardTimes = 1;
-  const targetNumber = 1;
-  var result;
-  // ここから処理を書いていきます
-  dronejs.connect(DRONE_NAME)
-    // 飛ぶ前に一度平坦な状態を覚える
-	.then(() => console.log('a'))
-    .then(() => dronejs.flatTrim())
-    // 物を掴んで離陸
-	.then(() => console.log('b'))
-    .then(() => winGrabClose())
-	.then(() => console.log('c'))
-    .then(() => winGrabOpen())
-    // ドローン内部の画像を全て削除する
-    // 接続解除
-    .then(() => dronejs.disconnect())
-    .then(() => {
-      process.stdin.pause();
-      process.exit();
-    })
-    .catch((e) => {
-      console.log('エラー: ' + e);
-      process.stdin.pause();
-      process.exit();
-    });
-}
-
-main2(); // 関数を実行します
+main(); // 関数を実行します
