@@ -72,6 +72,12 @@ npm install git+https://github.com/PolideaInternal/noble.git#macos_highsierra
 
 #### 最初のプログラムを実行しましょう
 
++ testFlight.jsとtestGrab.jsにドローンの名前を追記する
+  ```
+  // あなたのMamboの名前をセットしてください。
+  var DRONE_NAME = "Mambo_546341";
+  ```
+
 + 飛行テスト
   + 飛んで着陸するだけのプログラムです
 
