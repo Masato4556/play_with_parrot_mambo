@@ -175,7 +175,9 @@ function main() {
 //  const forwardTimes = 2;
   const forwardIndensity = 30;
   const forwardTimes = 1;
-  const targetNumber = 1;
+  // ---------------------------------------------------------------
+  const targetNumber = 2; // こちらに指示された番号を入力します
+  // ---------------------------------------------------------------
   var result;
   // ここから処理を書いていきます
   dronejs.connect(DRONE_NAME)
