@@ -225,7 +225,6 @@ function main() {
     .then(() => dronejs.forward(forwardIndensity, forwardTimes))
     // 着陸する
     .then(() => dronejs.land())
-    // ドローン内部の画像を全て削除する
     // 接続解除
     .then(() => dronejs.disconnect())
     .then(() => {
