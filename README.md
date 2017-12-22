@@ -33,7 +33,8 @@ Parrot Mambo Missionを使って遊びます
 ```
 git clone https://github.com/hiko2msp/play_with_parrot_mambo.git
 cd play_with_parrot_mambo
-bash setup.sh
+pip install --upgrade --ignore-installed -r requirements.txt
+npm i
 cd node_modules
 git clone https://github.com/hiko2msp/DroneJS.git dronejs
 cd ../
