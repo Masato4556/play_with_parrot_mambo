@@ -30,6 +30,15 @@ Parrot Mambo Missionを使って遊びます
 
 #### プログラムを準備しましょう
 
++ Windowsの場合、別途事前に下記コマンドを打つ
+
+```
+npm install --global windows-build-tools
+npm install bluetooth-hci-socket
+```
+
++ 共通のコマンド
+
 ```
 git clone https://github.com/hiko2msp/play_with_parrot_mambo.git
 cd play_with_parrot_mambo
@@ -38,6 +47,12 @@ npm i
 cd node_modules
 git clone https://github.com/hiko2msp/DroneJS.git dronejs
 cd ../
+```
+
++ Mac OS High Sierraの場合、上記コマンドでnobleのライブラリのインストールが失敗するため、下記コマンドを使ってインストールする
+
+```
+npm install git+https://github.com/PolideaInternal/noble.git#macos_highsierra
 ```
 
 #### ドローンの名前を確認しましょう
