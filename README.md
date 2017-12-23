@@ -37,7 +37,7 @@ npm install --global windows-build-tools
 npm install bluetooth-hci-socket
 ```
 
-+ 共通のコマンド
++ Windowsの場合
 
 ```
 git clone https://github.com/hiko2msp/play_with_parrot_mambo.git
@@ -47,6 +47,32 @@ npm i
 cd node_modules
 git clone https://github.com/hiko2msp/DroneJS.git dronejs
 cd ../
+```
+
++ Macの場合
+
+```
+conda create -n py3.5 python=3.5 anaconda
+conda create -n py2.7 python=2.7    
+git clone https://github.com/hiko2msp/play_with_parrot_mambo
+cd play_with_parrot_mambo
+source activate py2.7
+npm install
+cd node_modules
+git clone https://github.com/hiko2msp/DroneJS.git dronejs
+cd ../
+source deactivate py2.7
+```
+
+```
+source activate py3.5
+pip install --upgrade --ignore-installed -r requirements.txt
+source deactivate py3.5
+```
+
+```
+node find.js
+node macSample.js
 ```
 
 + Mac OS High Sierraの場合、上記コマンドでnobleのライブラリのインストールが失敗するため、下記コマンドを使ってインストールする
