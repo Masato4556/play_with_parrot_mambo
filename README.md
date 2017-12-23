@@ -200,8 +200,8 @@ npm install git+https://github.com/PolideaInternal/noble.git#macos_highsierra
 
 ## ここからがPythonのバージョンを変える方法になります
 
-(3)Anaconda and NPM
-+ https://www.anaconda.com/download/#macos
+(3)Anaconda and NPM  https://www.anaconda.com/download/#macos
+
 + $ conda create -n py3.5 python=3.5 anaconda
 + $ conda create -n py2.7 python=2.7    
 + $ git clone https://github.com/hiko2msp/play_with_parrot_mambo
