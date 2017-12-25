@@ -312,6 +312,7 @@ TypeError: 'NoneType' object is not callable
   $ node winSample.js
   ```
 
+![winSample.jsの処理フロー](winSample.png)
 
 ## その他参考資料
 
