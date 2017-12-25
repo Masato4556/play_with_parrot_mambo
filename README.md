@@ -278,6 +278,8 @@ TypeError: 'NoneType' object is not callable
   $ node macSample.js
   ```
 
+![macSample.jsの処理フロー](macSample.png)
+
 ##### Windowsの場合
 
 + 別のターミナルで画像処理用のPythonのサーバを実行する
